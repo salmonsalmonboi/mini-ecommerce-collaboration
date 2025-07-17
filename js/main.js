@@ -1,15 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productList = document.getElementById('product-list');
     const searchInput = document.getElementById('searchInput');
+    const loaderwrapper = document.getElementById('loader-wrapper');
     let allProducts = [];
+
+    loaderwrapper.style.display = 'block'; // แสดง Loader ก่อนโหลด
 
     // Fetch products from JSON
     fetch('js/products.json')
         .then(response => response.json())
         .then(data => {
             allProducts = data;
-            displayProducts(allProducts);
-        });
+    
+    // หน่วงเวลา 3 วินาที แล้วค่อยแสดงสินค้ากับซ่อน loader
+      setTimeout(() => {
+        displayProducts(allProducts);
+        loaderwrapper.style.display = 'none';
+      }, 500);
+    });
+
 
     function displayProducts(products) {
         productList.innerHTML = ''; // Clear previous list
@@ -19,8 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
-                <p>ราคา: ${product.price} บาท</p>
-            `;
+                <p>ราคา: ${Number(product.price).toLocaleString()} บาท</p> 
+
+            `; // เพิ่ม comma เช่น 12600 → 12,600 เพื่อให้ราคาอ่านง่ายขึ้น
             productList.appendChild(card);
         });
     }
