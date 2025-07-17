@@ -27,11 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inefficient Search
     searchInput.addEventListener('keyup', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredProducts = allProducts.filter(product => {
-            // Simple search, not very efficient
-            return product.name.toLowerCase().includes(searchTerm);
-        });
-        displayProducts(filteredProducts);
+        const searchTerm = searchInput.value.trim().toLowerCase();
+
+        if (searchTerm === '') {
+            displayProducts(allProducts);
+        } else {
+            const filteredProducts = allProducts.filter(product =>
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            displayProducts(filteredProducts);
+        }
     });
 });
