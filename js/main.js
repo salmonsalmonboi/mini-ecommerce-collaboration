@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         displayProducts(allProducts);
         loaderwrapper.style.display = 'none';
-      }, 1000);
+      }, 500);
     });
 
 
